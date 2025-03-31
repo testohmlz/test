@@ -1,0 +1,203 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Navbar with Phone Input</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .navbar {
+      background-color: #4CAF50;
+      padding: 15px 20px;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .sub-image {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .phone-input {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: linear-gradient(to right, #43e97b, #38f9d7);
+      color: #fff;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #38f9d7, #43e97b);
+    }
+
+    footer {
+      background-color: #2e7d32;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    footer .footer-links span {
+      display: block;
+    }
+
+    footer .footer-bottom {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+
+    @media screen and (max-width: 480px) {
+      .container {
+        margin: 30px 10px;
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    🌿 Green Navbar
+  </div>
+
+  <div class="container">
+    <img src="DSxOAUB0raA.png" alt="Second Image" class="sub-image">
+    <img src="172245867233593622.png" alt="Logo" class="logo">
+    <h2>Join Our WhatsApp Group</h2>
+    <form id="phone-form">
+      <input id="phone" class="phone-input" type="tel" placeholder="+1 234 567 8900" required autocomplete="off">
+      <button type="submit">Join Now</button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-links">
+      <span>Utiliser WhatsApp</span>
+      <span>Fonctionnalités</span>
+      <span>WhatsApp Web</span>
+      <span>Télécharger</span>
+      <span>À propos de nous</span>
+      <span>Entreprise</span>
+      <span>Sécurité</span>
+      <span>Confidentialité et conditions</span>
+      <span>Entrer en contact</span>
+      <span>Contactez-nous</span>
+      <span>Facebook</span>
+      <span>X (Twitter)</span>
+      <span>Logo de Meta</span>
+    </div>
+    <div class="footer-bottom">© 2025 WhatsApp</div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <script>
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+      initialCountry: "auto",
+      geoIpLookup: function (callback) {
+        fetch("https://ipinfo.io/json?token=YOUR_TOKEN_HERE")
+          .then((resp) => resp.json())
+          .then((resp) => {
+            const countryCode = resp && resp.country ? resp.country : "us";
+            callback(countryCode.toLowerCase());
+          })
+          .catch(() => callback("us"));
+      },
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    document.getElementById("phone-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Form submitted with number: " + input.value);
+    });
+  </script>
+
+  <!-- Auto Translate Based on IP Language -->
+  <script>
+    fetch("https://ipapi.co/json")
+      .then(response => response.json())
+      .then(data => {
+        const userLang = data.languages ? data.languages.split(',')[0] : navigator.language;
+        if (userLang !== 'en') {
+          const script = document.createElement('script');
+          script.src = `https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit`;
+          document.body.appendChild(script);
+
+          window.googleTranslateElementInit = function () {
+            new google.translate.TranslateElement({
+              pageLanguage: 'en',
+              includedLanguages: userLang,
+              layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+          };
+        }
+      });
+  </script>
+  <div id="google_translate_element" style="display:none;"></div>
+</body>
+</html>
